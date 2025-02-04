@@ -66,3 +66,58 @@ export function getReview(req,res){
         )
     }
 }
+
+export function deleteReview(req,res){
+    const email=req.params.email;
+
+    if (req.user==null){
+        res.status(401).json({
+            message:"Please login and try again"
+        })
+        return
+    }
+
+    if(req.user.role=="admin"){
+
+    Review.deleteOne(
+        {email:email}
+    ).then(
+        ()=>{
+            res.json({
+                message:"Review deted successfully"
+            })
+        }
+    ).catch(
+        ()=>{
+            res.status(500).json({
+                error:"Review detetion failed"
+            })
+        }
+    )
+    return
+    }
+    
+    if(req.user.role=="customer"){
+        if(req.user.email==email){
+            Review.deleteOne(
+                {email:email}
+            ).then(
+                ()=>{
+                    res.json({
+                        message:"Review deted successfully"
+                    })
+                }
+            ).catch(
+                ()=>{
+                    res.status(500).json({
+                        error:"Review detetion failed"
+                    })
+                }
+            )
+        }
+    }else{
+        res.status(403).json({
+            message:"You are not authorizes to perform this action"
+        })
+    }
+}
