@@ -1,43 +1,40 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const reviewSchema = new mongoose.Schema({
 
     email:{
         type:String,
+        required : true,
+        unique: true
+    },
+
+    name:{
+        type:String,
+        required:true
+
+    },
+
+    rating:{
+        type:Number,
+        required:true
+
+    },
+
+    comment:{
+        type:String,
+        required:true
+    },
+
+    date:{
+        type:Date,
         required:true,
-        unique:true
-
+        default:Date.now
     },
-
-    password:{
-        type:String,
-        required:true
-    },
-
-    role:{
-        type:String,
+    
+    isApproved:{
+        type:Boolean,
         required:true,
-        default:"customer"
-    },
-
-    firstName:{
-        type:String,
-        required:true
-    },
-
-    lastName:{
-        type:String,
-        required:true
-    },
-
-    address:{
-        type:String,
-        required:true
-    },
-
-    phone:{
-        type:String,
-        required:true
+        default:false
     },
 
     profilePicture:{
@@ -45,9 +42,12 @@ const userSchema = new mongoose.Schema({
         required:true,
         default:"https://www.freepik.com/premium-vector/influencer-icon-vector-image-can-be-used-digital-nomad_179142441.htm#fromView=keyword&page=1&position=21&uuid=becdcad2-5de5-4a33-9c7d-7723efb300ce&query=Default+User"
     }
+    
+    
+
 
 })
 
-const User=mongoose.model("user",userSchema);
+const Review=mongoose.model("Review",reviewSchema);
 
-export default User;
+export default Review;
