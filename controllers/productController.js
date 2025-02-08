@@ -1,5 +1,6 @@
+import Inquiry from "../models/inquiry.js";
 import Product from "../models/product.js";
-import { isItAdmin } from "./userController.js";
+import { isItAdmin, isItCustomer } from "./userController.js";
 
 
 export function addProduct(req, res) {
@@ -112,3 +113,5 @@ export async function deleteProduct(req,res){
         })
     }
 }
+
+
